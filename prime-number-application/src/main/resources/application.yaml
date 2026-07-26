@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: prime-number-application
+
+
+properties:
+  maximum-input-value: 50_000_000
