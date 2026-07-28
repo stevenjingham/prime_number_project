@@ -1,6 +1,8 @@
 package org.steve.primenumberapplication.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
 import org.steve.primenumberapplication.algorithm.BasePrimeNumberAlgorithm;
 import org.steve.primenumberapplication.algorithm.SievePrimeNumberAlgorithm;
@@ -12,6 +14,7 @@ import org.steve.primenumberapplication.model.PrimesResponse;
 
 @Service
 @Slf4j
+@EnableCaching
 public class PrimeNumberService {
 
     private final BasePrimeNumberAlgorithm basePrimeNumberAlgorithm;
@@ -24,6 +27,7 @@ public class PrimeNumberService {
         this.primeNumberConfiguration = primeNumberConfiguration;
     }
 
+    @Cacheable(value = "primes_cache", key = "#initialValue")
     public PrimesResponse getPrimes (int initialValue, PrimeAlgorithm algorithm){
 
         validateInitialValue(initialValue);

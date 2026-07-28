@@ -12,29 +12,29 @@ import java.util.List;
 public class SievePrimeNumberAlgorithm implements PrimeNumberAlgorithm{
 
     @Override
-    public List<Integer> findPrimes(int inputNumber) {
-        log.info("using SievePrimeNumberAlgorithm");
+    public List<Integer> findPrimes(int initialValue) {
+        log.info("using SievePrimeNumberAlgorithm to generate primes for " + initialValue);
         ArrayList<Integer> primeValues = new ArrayList<>();
 
-        if (inputNumber < 2) {
+        if (initialValue < 2) {
             return primeValues;
         }
 
-        boolean[] primes = new boolean[inputNumber + 1]; //Aligning index 0 to be equal to value 0
+        boolean[] primes = new boolean[initialValue + 1]; //Aligning index 0 to be equal to value 0
         Arrays.fill(primes, true);
 
         primes[0] = false;
         primes[1] = false;
 
-        for (int i = 2; i * i <= inputNumber; i++) {
+        for (int i = 2; i * i <= initialValue; i++) {
             if (primes[i]) {
-                for (int multiple = i * i; multiple <= inputNumber; multiple += i) {
+                for (int multiple = i * i; multiple <= initialValue; multiple += i) {
                     primes[multiple] = false;
                 }
             }
         }
 
-        for (int i = 2; i <= inputNumber; i++) {
+        for (int i = 2; i <= initialValue; i++) {
             if (primes[i]) {
                 primeValues.add(i);
             }

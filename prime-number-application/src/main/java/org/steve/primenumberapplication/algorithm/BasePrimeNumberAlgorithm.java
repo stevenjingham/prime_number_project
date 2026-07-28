@@ -12,15 +12,15 @@ import java.util.stream.IntStream;
 public class BasePrimeNumberAlgorithm implements PrimeNumberAlgorithm{
 
     @Override
-    public List<Integer> findPrimes(int inputNumber) {
-        log.info("using BasePrimeNumberAlgorithm");
+    public List<Integer> findPrimes(int initialValue) {
+        log.info("using BasePrimeNumberAlgorithm to generate primes for " + initialValue);
         List<Integer> primeValues = new ArrayList<>();
 
-        if (inputNumber < 2){
+        if (initialValue < 2){
             return primeValues;
         }
 
-        primeValues = IntStream.range(2, inputNumber+1).parallel().filter(this::isPrime).boxed().toList();
+        primeValues = IntStream.range(2, initialValue+1).parallel().filter(this::isPrime).boxed().toList();
 
         return primeValues;
     }

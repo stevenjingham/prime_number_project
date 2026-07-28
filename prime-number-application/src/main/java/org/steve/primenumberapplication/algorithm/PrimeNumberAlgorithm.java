@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface PrimeNumberAlgorithm {
 
-    List<Integer> findPrimes(int inputNumber);
+    List<Integer> findPrimes(int initialValue);
 
 }

@@ -40,10 +40,4 @@ public class PrimeNumberController {
         return new ResponseEntity<>(primeNumberService.getPrimes(initialValue, algorithm), HttpStatus.OK);
     }
 
-//read me
-    // api spec
-    // docker and put live
-    // cache
-    //
-
 }

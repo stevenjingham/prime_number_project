@@ -4,16 +4,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.steve.primenumberapplication.model.ErrorResponse;
 import org.steve.primenumberapplication.model.PrimesResponse;
 
-
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PrimeNumberApplicationIT {
@@ -84,7 +81,21 @@ public class PrimeNumberApplicationIT {
         assertEquals(expectedMessage, responseEntity.getBody().getErrorMessage());
     }
 
+    @Test
+    void shouldReturnPrimes_XMLHeader() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(List.of(MediaType.APPLICATION_XML));
 
+        HttpEntity<Object> request = new HttpEntity<>(headers);
 
+        ResponseEntity<PrimesResponse> responseEntity = this.testRestTemplate.exchange(
+                        "/api/v1/primes/20", HttpMethod.GET, request, PrimesResponse.class);
+
+        assertTrue(MediaType.APPLICATION_XML.isCompatibleWith(responseEntity.getHeaders().getContentType()));
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertNotNull(responseEntity.getBody());
+        assertEquals(20, responseEntity.getBody().getInitialValue());
+        assertEquals(List.of(2, 3, 5, 7, 11, 13, 17, 19), responseEntity.getBody().getPrimeValues());
+    }
 
 }
