@@ -5,3 +5,5 @@ spring:
 
 properties:
   maximum-input-value: 50_000_000
+server:
+  port: 8080
