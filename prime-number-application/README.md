@@ -135,6 +135,19 @@ Example:
 #### Algorithm Development
 - After an initial "brute force" prime number algorithm was created, I researched optimum methods to generate the prime numbers (website link above)
 - In terms of package structure, separate classes are created for each of the algorithms - allowing separation of concerns and unit test coverage
+- A performance test conducted shows the Sieve of Eratosthenes scales significantly better as the upper limit increases. The results are shared below:
+
+  | Input Value | Base Avg (ms) | Sieve Avg (ms) | Improvement |
+  |------------:| ------------: | -------------: |------------:|
+  |          10 |          1.10 |           0.32 |    **3.4×** |
+  |         100 |          1.96 |           0.22 |    **8.9×** |
+  |       1,000 |          1.73 |           0.34 |    **5.1×** |
+  |      10,000 |          5.03 |           0.39 |   **12.9×** |
+  |     100,000 |          7.81 |           0.89 |    **8.8×** |
+  |   1,000,000 |         92.89 |           5.28 |   **17.6×** |
+  |  10,000,000 |       1240.81 |          64.40 |   **19.3×** |
+  - (N.B. performances test utilise 100 iterations per input value)
+
 
 #### Cache
 - A Caffeine Cache configuration has been introduced for repeated requests for the same initial value. 
