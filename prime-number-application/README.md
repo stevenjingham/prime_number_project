@@ -14,6 +14,13 @@ This Prime Number Application provides a REST API that allows consumers to retri
   - BASE - low complexity algorithm to iterate over each value below the square root of the input value, seeing if the division has a remainder of 0.
   - SIEVE - more performant algorithm, based on Sieve of Eratosthenes (https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
 
+## Live environment
+
+The application is running live with a base url of:
+```
+https://prime-number-project.onrender.com/
+```
+
 ## Running Locally
 
 Requires Java 17+ and Maven.
@@ -25,6 +32,8 @@ The application will be available at: http://localhost:8080
 The API is documented using OpenAPI.
 
 Swagger UI:
+
+https://prime-number-project.onrender.com/swagger-ui/index.html
 
 http://localhost:8080/swagger-ui/index.html
 
@@ -38,7 +47,7 @@ GET /api/v1/primes/{initialValue}
 ```
 Example:
 ```
-GET /api/v1/primes/20
+GET https://prime-number-project.onrender.com/api/v1/primes/20
 ```
 Response:
 
@@ -64,6 +73,7 @@ XML
 </PrimesResponse>
 ```
 
+
 #### 2) Endpoint with optional algorithm 
 
 The algorithm use to generate the prime numbers can be selected using the algorithm request parameter.
@@ -72,7 +82,7 @@ If no algorithm is supplied, the default algorithm is BASE.
 
 Example using SIEVE:
 ```
-GET /api/v1/primes/20?algorithm=SIEVE
+GET https://prime-number-project.onrender.com/api/v1/primes/20?algorithm=SIEVE
 ```
 The response using the optional algorithm is the same as the response examples above. 
 
@@ -90,6 +100,16 @@ Example:
   maximum-input-value: 50_000_000
 ```
 
+
+### Example usage
+
+```curl https://prime-number-project.onrender.com/api/v1/primes/20```
+
+```curl https://prime-number-project.onrender.com/api/v1/primes/5000000?algorithm=SIEVE```
+
+```curl -H "Accept: application/xml" https://prime-number-project.onrender.com/api/v1/primes/20```
+
+```curl -H "Accept: application/json" https://prime-number-project.onrender.com/api/v1/primes/20```
 
 ## Design Decisions
 
@@ -131,9 +151,17 @@ Example:
 - Custom exceptions have been created to support the validation of the input values. 
 - A GlobalExceptionHandler has been added - and an ErrorResponse has been created to provide a consistent error message to the user.
 
+Example errors API calls:
+```curl https://prime-number-project.onrender.com/api/v1/primes/-1```
+```curl https://prime-number-project.onrender.com/api/v1/primes/5000001?algorithm=SIEVE```
+```curl https://prime-number-project.onrender.com/api/v1/primes/20?algorithm=abc```
+
 ### XML Response support
 - I developed this application with JSON in mind at first - as I am not a regular creator of XML endpoints.
 - On quick research, I found the implementation is handled well with relevant imports and configuration as per https://www.baeldung.com/spring-xml-requestbody
+- Example request: 
+
+```curl -H "Accept: application/xml" https://prime-number-project.onrender.com/api/v1/primes/20```
 
 
 ## Testing

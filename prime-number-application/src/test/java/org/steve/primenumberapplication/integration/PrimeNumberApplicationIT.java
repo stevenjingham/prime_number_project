@@ -31,6 +31,20 @@ public class PrimeNumberApplicationIT {
     }
 
     @Test
+    void shouldReturnPrimes_maximumInitialValue() {
+        ResponseEntity<PrimesResponse> responseEntity = this.testRestTemplate.getForEntity(
+                "/api/v1/primes/50000000?algorithm=SIEVE", PrimesResponse.class
+        );
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertNotNull(responseEntity.getBody());
+        assertEquals(50000000, responseEntity.getBody().getInitialValue());
+        assertNotNull(responseEntity.getBody().getPrimeValues());
+        assertTrue(responseEntity.getBody().getPrimeValues().size() > 1000);
+    }
+
+
+    @Test
     void shouldReturnPrimes_whenAlgorithmCalled() {
         ResponseEntity<PrimesResponse> responseEntity = this.testRestTemplate.getForEntity(
                 "/api/v1/primes/20?algorithm=SIEVE", PrimesResponse.class
