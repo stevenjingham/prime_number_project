@@ -105,7 +105,7 @@ Example:
 
 ```curl https://prime-number-project.onrender.com/api/v1/primes/20```
 
-```curl https://prime-number-project.onrender.com/api/v1/primes/5000000?algorithm=SIEVE```
+```curl https://prime-number-project.onrender.com/api/v1/primes/50000?algorithm=SIEVE```
 
 ```curl -H "Accept: application/xml" https://prime-number-project.onrender.com/api/v1/primes/20```
 
